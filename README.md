@@ -17,6 +17,12 @@ A plataforma junta clientes e estudantes num só sítio: menos atrito entre ferr
 - **PostgreSQL** na **Neon**, via **Prisma**
 - Deploy previsto: **Netlify** · código em **GitHub**
 
+## Deploy (Netlify)
+
+O repositório inclui `netlify.toml` com o runtime **Next.js** (`@netlify/plugin-nextjs`) e `publish = ".next"`. Sem isto, ou com o diretório de publicação errado no painel (por exemplo `out` ou vazio), o site pode responder **404** na raiz.
+
+No painel do site: **Build command** `npm run build` (ou deixa o detetado pelo repositório), e define as mesmas variáveis de ambiente de produção que precisares (por exemplo `DATABASE_URL` para o Neon). Depois de fazer push, volta a **publicar** o deploy.
+
 ## Desenvolvimento
 
 ```bash

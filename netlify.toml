@@ -1,0 +1,12 @@
+# Next.js na Netlify (OpenNext) — evita 404 quando o publish ou o runtime não estão corretos no UI.
+# https://docs.netlify.com/frameworks/next-js/overview/
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "22"
