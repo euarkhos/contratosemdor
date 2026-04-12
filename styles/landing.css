@@ -1,0 +1,1555 @@
+/* Landing — estrutura inspirada em juro.com + DESIGN-SPEC */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lp-page {
+  background: var(--juro-page);
+  color: var(--juro-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.lp-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-left: clamp(1.25rem, 4vw, 2.5rem);
+  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* —— Faixa topo (lima) —— */
+.lp-announcement {
+  background: var(--juro-lime);
+  color: var(--juro-lime-fg);
+  padding: 14px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.lp-announcement-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lp-announcement a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lp-announcement a:hover {
+  text-decoration: underline;
+}
+
+.lp-announcement-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.lp-announcement-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--juro-radius-card);
+  background: rgba(12, 12, 12, 0.08);
+  color: var(--juro-lime-fg);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--transition-ui);
+}
+
+.lp-announcement-close:hover {
+  background: rgba(12, 12, 12, 0.16);
+}
+
+.lp-announcement-close:focus-visible {
+  outline: 2px solid var(--juro-lime-fg);
+  outline-offset: 2px;
+}
+
+/* —— Header fixo —— */
+.lp-site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+/* Barra clara após scroll (hero já não totalmente visível) */
+.lp-site-header--surface {
+  background: var(--juro-card);
+  box-shadow: var(--juro-shadow-nav);
+}
+
+.lp-site-header--surface .lp-nav {
+  background: var(--juro-card);
+  border-bottom: 1px solid var(--juro-border);
+}
+
+.lp-site-header--surface .lp-mobile-panel {
+  background: var(--juro-card);
+}
+
+/* Hero visível: faixa lima + menu na cor do hero */
+.lp-site-header--over-hero {
+  background: transparent;
+  box-shadow: none;
+}
+
+.lp-site-header--over-hero .lp-nav {
+  background: var(--juro-hero);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lp-site-header--over-hero .lp-nav-link {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.lp-site-header--over-hero .lp-nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lp-site-header--over-hero .lp-btn--outline {
+  color: #fff;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.88);
+}
+
+.lp-site-header--over-hero .lp-btn--outline:hover {
+  opacity: 0.88;
+}
+
+.lp-site-header--over-hero .lp-btn--primary {
+  background: #fff;
+  color: #0a0a0a;
+}
+
+.lp-site-header--over-hero .lp-btn--primary:hover {
+  opacity: 0.92;
+}
+
+.lp-site-header--over-hero .lp-nav-toggle {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.lp-site-header--over-hero .lp-mobile-panel {
+  background: var(--juro-hero);
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.lp-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 72px;
+}
+
+.lp-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  line-height: 0;
+}
+
+.lp-logo-img {
+  display: block;
+  height: clamp(34px, 4.5vw, 48px);
+  width: auto;
+  max-width: min(300px, 58vw);
+  object-fit: contain;
+}
+
+/* Mesmo SVG preto invertido para fundo escuro (hero) */
+.lp-logo-img--light {
+  filter: invert(1);
+}
+
+.lp-nav-links {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (min-width: 900px) {
+  .lp-nav-links {
+    display: flex;
+  }
+}
+
+.lp-nav-link {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--juro-text);
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: var(--juro-radius-pill);
+  transition: background var(--transition-ui);
+}
+
+.lp-nav-link:hover {
+  background: var(--juro-shade-9);
+}
+
+.lp-nav-actions {
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (min-width: 900px) {
+  .lp-nav-actions {
+    display: flex;
+  }
+}
+
+.lp-nav-actions .lp-btn,
+.lp-mobile-panel .lp-btn {
+  font-weight: 700;
+}
+
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.35;
+  padding: 12px 24px 14px;
+  border-radius: var(--juro-radius-card);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity var(--transition-ui), transform 0.15s ease;
+}
+
+.lp-btn:active {
+  transform: scale(0.98);
+}
+
+.lp-btn--primary {
+  background: var(--preview-btn-solid-bg);
+  color: var(--preview-btn-solid-text);
+}
+
+.lp-btn--primary:hover {
+  opacity: 0.88;
+}
+
+.lp-btn--outline {
+  background: transparent;
+  color: var(--juro-text);
+  box-shadow: inset 0 0 0 2px var(--preview-btn-outline-border);
+}
+
+.lp-btn--outline:hover {
+  opacity: 0.75;
+}
+
+.lp-btn--lg {
+  font-size: 1.05rem;
+  padding: 12px 36px 14px;
+}
+
+/* —— Menu mobile —— */
+.lp-nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--juro-shade-9);
+  border-radius: var(--juro-radius-card);
+  cursor: pointer;
+}
+
+@media (min-width: 900px) {
+  .lp-nav-toggle {
+    display: none;
+  }
+}
+
+.lp-mobile-panel {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 0 24px;
+  border-top: 1px solid var(--juro-border);
+}
+
+.lp-mobile-panel[data-open="true"] {
+  display: flex;
+}
+
+@media (min-width: 900px) {
+  .lp-mobile-panel {
+    display: none !important;
+  }
+}
+
+.lp-mobile-panel .lp-nav-link {
+  padding: 14px 12px;
+}
+
+.lp-mobile-panel .lp-btn {
+  width: 100%;
+}
+
+/* —— Main: sem padding global — o hero compensa o header fixo —— */
+.lp-main {
+  padding-top: 0;
+}
+
+/* —— Hero: viewport inteira; fundo sob o menu fixo (padding-top = altura header) —— */
+.lp-hero {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--lp-main-offset);
+  padding-bottom: clamp(2.5rem, 7vw, 5rem);
+  background: var(--juro-hero);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 899px) {
+  .lp-hero {
+    padding-top: var(--lp-main-offset-sm);
+    justify-content: flex-start;
+    padding-bottom: clamp(2rem, 8vw, 3.5rem);
+  }
+}
+
+.lp-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .lp-hero-grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+}
+
+.lp-hero-copy {
+  min-width: 0;
+}
+
+@media (max-width: 899px) {
+  .lp-hero-copy {
+    order: 1;
+  }
+
+  .lp-hero-media-slot {
+    order: 2;
+  }
+}
+
+.lp-hero-media-slot,
+.lp-produto-media-slot,
+.lp-solucoes-media-slot {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Placeholder: rect claro (hero + produto + soluções) */
+.lp-hero-media,
+.lp-produto-media,
+.lp-solucoes-media {
+  width: 100%;
+  min-width: 0;
+  border-radius: calc(var(--juro-radius-card) + 4px);
+  background: linear-gradient(165deg, #f2efe9 0%, #e8e4e0 45%, #ddd9d5 100%);
+  aspect-ratio: 16 / 10;
+  min-height: 200px;
+  max-height: min(48vh, 440px);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 12px 40px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 899px) {
+  .lp-hero-media,
+  .lp-produto-media,
+  .lp-solucoes-media {
+    max-height: min(36vh, 300px);
+  }
+}
+
+/* Sombra mais suave no fundo claro (produto + soluções) */
+.lp-section--product .lp-produto-media,
+.lp-section--solucoes .lp-solucoes-media {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Título: serif (Playfair) como referência marketing Juro */
+.lp-display {
+  font-family: var(--font-hero-serif), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(2.35rem, 4vw + 1rem, 4.125rem);
+  line-height: 1.1;
+  margin: 0 0 clamp(1.25rem, 2.5vw, 1.75rem);
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+@media (max-width: 599px) {
+  .lp-display {
+    font-size: clamp(2rem, 8.5vw, 2.75rem);
+  }
+}
+
+/* Referência: span.underline-animated — “aqui” com linha pontilhada + desenho */
+.lp-hero-underline {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.lp-hero-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* Mais negativo = linha mais abaixo = mais espaço entre a palavra e os pontos */
+  bottom: -0.1em;
+  height: 0.22em;
+  max-height: 10px;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at center,
+    var(--juro-lime) 1.5px,
+    transparent 1.6px
+  );
+  background-size: 7px 100%;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  clip-path: inset(0 100% 0 0);
+  animation: lp-hero-underline-reveal 0.85s ease 0.2s forwards;
+}
+
+@keyframes lp-hero-underline-reveal {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-hero-underline::after {
+    animation: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.lp-lead {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(1.0625rem, 0.9vw + 0.95rem, 1.3125rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 clamp(1.5rem, 3.5vw, 2.25rem);
+  max-width: min(48ch, 100%);
+}
+
+.lp-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.lp-hero-ctas .lp-btn--lg {
+  border-radius: var(--juro-radius-full);
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.lp-btn--on-dark {
+  background: #fff;
+  color: #0a0a0a;
+}
+
+.lp-btn--on-dark:hover {
+  opacity: 0.9;
+}
+
+.lp-btn--outline-light {
+  background: transparent;
+  color: #fff;
+  box-shadow: inset 0 0 0 2px var(--preview-hero-outline);
+}
+
+.lp-btn--outline-light:hover {
+  opacity: 0.85;
+}
+
+.lp-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 1.75rem;
+  align-items: center;
+  font-size: clamp(0.875rem, 0.5vw + 0.8rem, 0.95rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.lp-g2-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* —— Secção genérica —— */
+.lp-section {
+  padding: clamp(3rem, 8vw, 5.5rem) 0;
+}
+
+.lp-section--muted {
+  background: var(--juro-page);
+}
+
+.lp-section--air {
+  background: linear-gradient(180deg, var(--juro-fon-air) 0%, var(--juro-page) 100%);
+}
+
+.lp-section--pistachio {
+  background: var(--juro-pistachio);
+}
+
+.lp-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--juro-text-muted);
+  margin: 0 0 1rem;
+}
+
+.lp-h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  color: var(--juro-text);
+}
+
+.lp-section-intro {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--juro-text-secondary);
+  max-width: 52ch;
+  margin: 0 0 2.5rem;
+}
+
+/* —— Secção Produto (referência Juro: texto | mock UI) —— */
+.lp-section--product {
+  background: #fff;
+  padding-top: clamp(3.5rem, 9vw, 6rem);
+  padding-bottom: clamp(3.5rem, 9vw, 6rem);
+}
+
+.lp-produto-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .lp-produto-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(2rem, 4.5vw, 3.75rem);
+  }
+}
+
+.lp-produto-copy {
+  min-width: 0;
+  max-width: 38rem;
+}
+
+@media (min-width: 900px) {
+  .lp-produto-copy {
+    padding-right: clamp(0.5rem, 2vw, 1.5rem);
+  }
+}
+
+.lp-produto-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.lp-produto-icon {
+  color: var(--juro-text-secondary);
+  flex-shrink: 0;
+}
+
+.lp-produto-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--juro-text);
+  margin: 0;
+}
+
+.lp-produto-title {
+  font-family: var(--font-hero-serif), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(1.85rem, 2.2vw + 1rem, 2.85rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--juro-text);
+  margin: 0 0 1.1rem;
+}
+
+.lp-produto-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1rem, 0.45vw + 0.92rem, 1.125rem);
+  line-height: 1.6;
+  color: var(--juro-text-secondary);
+  margin: 0 0 1rem;
+}
+
+.lp-produto-replaces {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--juro-text-muted);
+  margin: 0 0 1.65rem;
+}
+
+.lp-produto-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 28px 16px;
+  border-radius: var(--juro-radius-full);
+  background: var(--juro-lime);
+  color: var(--juro-lime-fg);
+  text-decoration: none;
+  transition: opacity var(--transition-ui), transform 0.15s ease;
+  width: fit-content;
+}
+
+.lp-produto-cta:hover {
+  opacity: 0.9;
+}
+
+.lp-produto-cta:active {
+  transform: scale(0.98);
+}
+
+/* —— Secção Soluções (inverso do produto: retângulo | copy) —— */
+.lp-section--solucoes {
+  background: #fff;
+  padding-top: clamp(3.5rem, 9vw, 6rem);
+  padding-bottom: clamp(3.5rem, 9vw, 6rem);
+}
+
+.lp-solucoes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .lp-solucoes-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 4.5vw, 3.75rem);
+  }
+}
+
+.lp-solucoes-copy {
+  min-width: 0;
+  max-width: 38rem;
+}
+
+@media (min-width: 900px) {
+  .lp-solucoes-copy {
+    padding-left: clamp(0.5rem, 2vw, 1.5rem);
+  }
+}
+
+.lp-solucoes-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.15rem, 2.5vw, 1.5rem);
+  margin-top: clamp(0.75rem, 2vw, 1.15rem);
+}
+
+.lp-solucoes-pillar {
+  margin: 0;
+}
+
+.lp-solucoes-pillar-lead {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(0.98rem, 0.4vw + 0.88rem, 1.0625rem);
+  line-height: 1.45;
+  margin: 0 0 0.4rem;
+  color: var(--juro-text);
+}
+
+.lp-solucoes-pillar-lead strong {
+  font-weight: 600;
+}
+
+.lp-solucoes-pillar-desc {
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--juro-text-secondary);
+  margin: 0;
+  max-width: 52ch;
+}
+
+.lp-solucoes-copy .lp-produto-body {
+  margin-bottom: 0.25rem;
+}
+
+.lp-solucoes-cta-wrap {
+  margin-top: 1.35rem;
+}
+
+/* —— Main (duas colunas) —— */
+.lp-two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .lp-two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.lp-list-check {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lp-list-check li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--juro-text-secondary);
+}
+
+.lp-list-check li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: var(--juro-radius-full);
+  background: var(--juro-teal-cta);
+}
+
+/* —— Quotes / logos —— */
+.lp-quotes {
+  border-top: 1px solid var(--juro-border);
+  border-bottom: 1px solid var(--juro-border);
+  background: var(--juro-card);
+  padding: 2rem 0;
+}
+
+.lp-quotes-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 3rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--juro-text-muted);
+}
+
+.lp-quote-logo {
+  opacity: 0.75;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* —— Points (3 colunas) —— */
+.lp-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .lp-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* —— Reviews: full viewport, carrossel tipo Juro —— */
+.lp-reviews-section {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--lp-main-offset);
+  padding-bottom: clamp(2rem, 6vw, 4rem);
+  background: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 899px) {
+  .lp-reviews-section {
+    padding-top: var(--lp-main-offset-sm);
+    justify-content: flex-start;
+    padding-bottom: clamp(1.75rem, 6vw, 3rem);
+  }
+}
+
+.lp-reviews-shell {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-inline: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Setas acima dos cards, com folga clara em relação ao carrossel */
+.lp-reviews-nav-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.25rem);
+  padding-bottom: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.lp-reviews-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lp-reviews-arrow {
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--juro-radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #fff;
+  font-size: 1.35rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.lp-reviews-arrow:hover {
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.lp-reviews-arrow:focus-visible {
+  outline: 2px solid var(--juro-lime);
+  outline-offset: 2px;
+}
+
+.lp-reviews-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Viewport: sem scroll nativo — posição via translate3d no trilho (modelo Swiper / juro.com) */
+.lp-reviews-carousel {
+  --lp-review-slide-w: min(780px, 72vw);
+  --lp-review-card-h: clamp(380px, 50vh, 440px);
+  overflow: hidden;
+  width: 100%;
+  touch-action: pan-y;
+}
+
+.lp-reviews-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.lp-reviews-track--instant {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-reviews-track {
+    transition-duration: 0.01ms;
+  }
+}
+
+.lp-review-slide {
+  flex: 0 0 var(--lp-review-slide-w);
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.lp-review-slide-card {
+  width: 100%;
+  height: var(--lp-review-card-h);
+  min-height: var(--lp-review-card-h);
+  max-height: var(--lp-review-card-h);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+  background: #141414;
+}
+
+@media (min-width: 700px) {
+  .lp-review-slide-card {
+    grid-template-columns: 1.02fr 0.98fr;
+    grid-template-rows: 1fr;
+  }
+}
+
+.lp-review-slide-copy {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@media (min-width: 700px) {
+  .lp-review-slide-copy {
+    height: 100%;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
+.lp-review-logo-mark {
+  display: grid;
+  grid-template-columns: repeat(2, 10px);
+  grid-template-rows: repeat(2, 10px);
+  gap: 3px;
+  width: fit-content;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  flex-shrink: 0;
+}
+
+.lp-review-logo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--juro-radius-full);
+  display: block;
+}
+
+.lp-review-logo-dot--a {
+  background: #e03070;
+}
+.lp-review-logo-dot--b {
+  background: #ffe500;
+}
+.lp-review-logo-dot--c {
+  background: #17e8ad;
+}
+.lp-review-logo-dot--d {
+  background: #015fff;
+}
+
+.lp-review-quote-serif {
+  font-family: var(--font-hero-serif), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.2vw + 0.65rem, 2rem);
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: #fff;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+.lp-review-quote-serif::before {
+  content: "\201C";
+}
+.lp-review-quote-serif::after {
+  content: "\201D";
+}
+
+.lp-review-highlight {
+  color: var(--juro-lime);
+}
+
+.lp-review-divider {
+  border: none;
+  height: 1px;
+  flex-shrink: 0;
+  margin: clamp(0.75rem, 2vw, 1.25rem) 0 clamp(1rem, 2vw, 1.5rem);
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.35) 0 6px,
+    transparent 6px 12px
+  );
+}
+
+.lp-review-metric-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.lp-review-metric-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.lp-review-metric-num {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 2.75rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.lp-review-metric-label {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(0.8125rem, 1vw + 0.5rem, 0.9375rem);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 22ch;
+}
+
+.lp-review-story-cta {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--juro-lime);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.lp-review-story-cta:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lp-review-slide-media {
+  min-width: 0;
+  min-height: 0;
+  background: #0a0a0a;
+}
+
+@media (min-width: 700px) {
+  .lp-review-slide-media {
+    height: 100%;
+  }
+}
+
+.lp-review-media-frame {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  background: linear-gradient(165deg, #2a2826 0%, #1a1816 50%, #12100e 100%);
+  display: flex;
+  align-items: stretch;
+}
+
+.lp-review-play {
+  position: absolute;
+  top: clamp(0.75rem, 2vw, 1rem);
+  right: clamp(0.75rem, 2vw, 1rem);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--juro-radius-full);
+  border: none;
+  background: var(--juro-lime);
+  color: var(--juro-lime-fg);
+  font-size: 0.95rem;
+  padding-left: 3px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease;
+}
+
+.lp-review-play:hover {
+  transform: scale(1.05);
+}
+
+.lp-review-play:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.lp-review-media-caption {
+  position: absolute;
+  left: clamp(0.75rem, 2vw, 1rem);
+  bottom: clamp(0.75rem, 2vw, 1rem);
+  right: clamp(3.5rem, 8vw, 5rem);
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.lp-review-media-caption p {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+}
+
+.lp-review-cap-name {
+  font-weight: 600;
+}
+
+.lp-review-cap-role,
+.lp-review-cap-org {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.lp-review-cap-loc {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.75rem;
+  margin-top: 0.15rem;
+}
+
+/* —— Awards / trust —— */
+.lp-awards {
+  background: var(--juro-page);
+}
+
+.lp-awards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .lp-awards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.lp-award-cell {
+  text-align: center;
+  padding: 1.25rem 0.75rem;
+}
+
+.lp-award-num {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  margin: 0 0 0.35rem;
+  color: var(--juro-primary);
+}
+
+.lp-award-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--juro-text-muted);
+  margin: 0;
+}
+
+/* —— Porquê (referência Juro “Why”) — fundo #121212, serif + cartões —— */
+.lp-porque {
+  background: #121212;
+  color: #fff;
+  padding: clamp(3.5rem, 9vw, 6rem) 0;
+}
+
+.lp-porque-header {
+  text-align: center;
+  max-width: 52rem;
+  margin: 0 auto clamp(2.75rem, 6vw, 4rem);
+}
+
+.lp-porque-eyebrow {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 clamp(1rem, 2vw, 1.35rem);
+}
+
+.lp-porque-title {
+  font-family: var(--font-hero-serif), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: #fff;
+}
+
+.lp-porque-title-accent {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+}
+
+.lp-porque-title-accent::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.06em;
+  height: 0.2em;
+  max-height: 9px;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at center,
+    var(--juro-lime) 1.5px,
+    transparent 1.6px
+  );
+  background-size: 6px 100%;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+}
+
+.lp-porque-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+@media (min-width: 768px) {
+  .lp-porque-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+}
+
+.lp-porque-card {
+  box-sizing: border-box;
+  text-align: center;
+  padding: clamp(1.75rem, 3vw, 2.35rem) clamp(1.35rem, 2.5vw, 1.75rem);
+  border-radius: var(--juro-radius-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.lp-porque-card-kicker {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--juro-lime);
+  margin: 0 0 clamp(1rem, 2vw, 1.35rem);
+  line-height: 1.35;
+}
+
+.lp-porque-card-text {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.9375rem, 0.5vw + 0.85rem, 1.0625rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  max-width: 36ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* —— Banner —— */
+.lp-banner {
+  background: var(--juro-teal-muted);
+  color: #fff;
+  padding: clamp(2.5rem, 6vw, 3.5rem) 0;
+  text-align: center;
+}
+
+.lp-banner h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  margin: 0 0 0.75rem;
+}
+
+.lp-banner p {
+  margin: 0 auto 1.5rem;
+  max-width: 38ch;
+  opacity: 0.95;
+  font-size: 1.05rem;
+}
+
+/* —— Start (CTA final) —— */
+.lp-start {
+  background: var(--juro-hero);
+  color: #fff;
+  padding: clamp(3.5rem, 9vw, 6rem) 0;
+  text-align: center;
+}
+
+/* Mesma hierarquia tipográfica que #porque (eyebrow + título serif + sublinhado lima) */
+.lp-start-header.lp-porque-header {
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.lp-start-lead {
+  margin: 0 auto 1.75rem;
+  max-width: 42ch;
+  opacity: 0.88;
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.lp-start-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* —— Footer —— */
+.lp-footer {
+  background: var(--juro-card);
+  border-top: 1px solid var(--juro-border);
+  padding: clamp(3rem, 6vw, 4rem) 0 2rem;
+}
+
+.lp-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .lp-footer-grid {
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+  }
+}
+
+.lp-footer-brand-block {
+  min-width: 0;
+}
+
+.lp-footer-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.lp-footer-tagline {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--juro-text-secondary);
+  max-width: 38ch;
+}
+
+.lp-footer-col h4 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--juro-text-muted);
+  margin: 0 0 1rem;
+}
+
+.lp-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lp-footer-links a {
+  display: block;
+  color: var(--juro-text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.35rem 0;
+  transition: color var(--transition-ui);
+}
+
+.lp-footer-links a:hover {
+  color: var(--juro-link-blue);
+}
+
+.lp-footer-bottom {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--juro-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--juro-text-muted);
+}
+
+.lp-footer-bottom a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* —— Página 404 —— */
+.lp-not-found {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 4rem);
+  background: var(--juro-hero);
+  color: #fff;
+  text-align: center;
+}
+
+.lp-not-found-inner {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.lp-not-found-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 0;
+}
+
+.lp-not-found-logo-img {
+  display: block;
+  height: clamp(36px, 5vw, 48px);
+  width: auto;
+  max-width: min(280px, 75vw);
+  object-fit: contain;
+  filter: invert(1);
+}
+
+.lp-not-found-eyebrow {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 clamp(1rem, 2.5vw, 1.35rem);
+}
+
+.lp-not-found-title {
+  font-family: var(--font-hero-serif), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw + 0.5rem, 2.85rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  color: #fff;
+}
+
+.lp-not-found-title-accent {
+  color: var(--juro-lime);
+}
+
+.lp-not-found-lead {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(1.02rem, 1.2vw + 0.85rem, 1.15rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.lp-not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.lp-not-found-actions .lp-btn--on-dark {
+  border-radius: var(--juro-radius-full);
+}

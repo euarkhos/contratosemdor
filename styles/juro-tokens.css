@@ -1,0 +1,77 @@
+/* Copiado de design-system/juro-extracted/styleguide/tokens.css — referência no DESIGN-SPEC */
+:root,
+[data-theme="light"] {
+  --juro-primary: #0635b3;
+  --juro-primary-2: #3cb88f;
+  --juro-lime: #c7f268;
+  --juro-lime-fg: #0c0c0c;
+  --juro-teal: #17e8ad;
+  --juro-teal-muted: #17c997;
+  --juro-teal-active: #11ab7f;
+  --juro-teal-cta: #00c8a7;
+  --juro-teal-cta-pressed: #0c7d5d;
+  --juro-link-blue: #015fff;
+  --juro-blue: #0095ff;
+  --juro-bright-blue: #005eff;
+
+  --juro-page: #faf8f6;
+  --juro-card: #ffffff;
+  --juro-muted: #f7f7f7;
+  --juro-shade-9: #f2f0ee;
+  --juro-hero: #121212;
+  --juro-fon-air: #def0ff;
+  --juro-pistachio: #e7f4ca;
+
+  --juro-text: #000000;
+  --juro-text-secondary: #49413a;
+  --juro-text-muted: #666563;
+  --juro-border: #dfdfdf;
+  --juro-shade-6: #cec6c0;
+
+  --juro-success: #2fccaa;
+  --juro-warning: #ffe500;
+  --juro-danger: #e03070;
+  --juro-overlay: rgba(0, 0, 0, 0.7);
+
+  --juro-radius-card: 16px;
+  --juro-radius-pill: 24px;
+  --juro-radius-full: 999px;
+
+  --juro-shadow-dropdown: 0 2px 16px rgba(0, 0, 0, 0.08);
+  --juro-shadow-nav: 11px 11px 40px rgba(73, 65, 58, 0.08);
+  --juro-shadow-soft: 9px 9px 10px rgba(146, 130, 116, 0.07);
+
+  --font-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), "Outfit", var(--font-sans);
+
+  --type-display-size: clamp(2.5rem, 5vw, 4rem);
+  --type-display-line: 1.11;
+  --type-lead-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  --type-lead-line: 1.5;
+
+  --transition-ui: 0.3s ease;
+
+  --preview-btn-solid-bg: #0a0a0a;
+  --preview-btn-solid-text: #ffffff;
+  --preview-btn-outline-border: #0a0a0a;
+  --preview-hero-outline: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --juro-page: #0c0c0c;
+  --juro-card: #171717;
+  --juro-muted: #1f1f1f;
+  --juro-shade-9: #2a2a2a;
+  --juro-border: #333333;
+  --juro-text: #fafafa;
+  --juro-text-secondary: #a3a3a3;
+  --juro-text-muted: #737373;
+  --juro-shadow-dropdown: 0 2px 16px rgba(0, 0, 0, 0.55);
+  --juro-shadow-nav: 0 12px 48px rgba(0, 0, 0, 0.55);
+  --juro-link-blue: #60a5fa;
+  --preview-btn-solid-bg: #f4f4f5;
+  --preview-btn-solid-text: #18181b;
+  --preview-btn-outline-border: #d4d4d8;
+  --preview-hero-outline: rgba(255, 255, 255, 0.35);
+}

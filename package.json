@@ -1,0 +1,32 @@
+{
+  "name": "contratosemdor",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "node --env-file=.env.local ./node_modules/prisma/build/index.js migrate dev",
+    "db:deploy": "node --env-file=.env.local ./node_modules/prisma/build/index.js migrate deploy",
+    "db:studio": "node --env-file=.env.local ./node_modules/prisma/build/index.js studio",
+    "db:push": "node --env-file=.env.local ./node_modules/prisma/build/index.js db push",
+    "db:status": "node --env-file=.env.local ./node_modules/prisma/build/index.js migrate status"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.15.0",
+    "eslint-config-next": "^15.1.0",
+    "prisma": "^6.3.0",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

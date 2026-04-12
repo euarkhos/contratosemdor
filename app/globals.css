@@ -1,0 +1,27 @@
+@import "../styles/juro-tokens.css";
+@import "../styles/landing.css";
+
+:root {
+  /* Ajustado em runtime quando a faixa de anúncio é fechada (LandingHeader) */
+  --lp-main-offset: 124px;
+  --lp-main-offset-sm: 118px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--juro-link-blue);
+}
