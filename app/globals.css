@@ -2,13 +2,15 @@
 @import "../styles/landing.css";
 
 :root {
-  /* Ajustado em runtime quando a faixa de anúncio é fechada (LandingHeader) */
-  --lp-main-offset: 124px;
-  --lp-main-offset-sm: 118px;
+  /* Altura real do header (faixa + nav) definida em runtime em LandingHeader */
+  --lp-site-header-height: 118px;
+  /* Respiro entre o fim do header fixo e o conteúdo do hero (ajusta em landing.css) */
+  --lp-hero-gap-after-header: clamp(0.75rem, 2.5vw, 1.5rem);
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 *,
@@ -20,6 +22,7 @@ html {
 body {
   margin: 0;
   line-height: 1.5;
+  overflow-x: clip;
 }
 
 a {

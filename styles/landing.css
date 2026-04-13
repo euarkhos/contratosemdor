@@ -16,14 +16,21 @@
   background: var(--juro-page);
   color: var(--juro-text);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 .lp-container {
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  padding-left: clamp(1.25rem, 4vw, 2.5rem);
-  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+  padding-left: max(
+    clamp(1rem, 4vw, 2.5rem),
+    env(safe-area-inset-left, 0px)
+  );
+  padding-right: max(
+    clamp(1rem, 4vw, 2.5rem),
+    env(safe-area-inset-right, 0px)
+  );
 }
 
 /* —— Faixa topo (lima) —— */
@@ -40,40 +47,57 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.65rem 1rem;
 }
 
-.lp-announcement a {
+.lp-announcement-copy {
+  margin: 0;
+  flex: 1 1 12rem;
+  min-width: 0;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.lp-announcement-trailing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+
+.lp-announcement-cta {
   color: inherit;
   font-weight: 600;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.2em;
+  white-space: nowrap;
 }
 
-.lp-announcement a:hover {
+.lp-announcement-cta:hover {
   text-decoration: underline;
 }
 
-.lp-announcement-end {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+.lp-announcement-arrow {
+  display: inline-block;
+  font-size: 0.95em;
+  line-height: 1;
+  translate: 0 0.05em;
 }
 
 .lp-announcement-close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   margin: 0;
   padding: 0;
   border: none;
-  border-radius: var(--juro-radius-card);
-  background: rgba(12, 12, 12, 0.08);
+  border-radius: 4px;
+  background: transparent;
   color: var(--juro-lime-fg);
   font-size: 1.35rem;
   line-height: 1;
@@ -82,7 +106,7 @@
 }
 
 .lp-announcement-close:hover {
-  background: rgba(12, 12, 12, 0.16);
+  background: rgba(12, 12, 12, 0.1);
 }
 
 .lp-announcement-close:focus-visible {
@@ -97,6 +121,9 @@
   left: 0;
   right: 0;
   z-index: 100;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 /* Barra clara após scroll (hero já não totalmente visível) */
@@ -120,9 +147,10 @@
   box-shadow: none;
 }
 
+/* Barra de navegação preta sólida (referência Juro) */
 .lp-site-header--over-hero .lp-nav {
-  background: var(--juro-hero);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .lp-site-header--over-hero .lp-nav-link {
@@ -152,13 +180,13 @@
 }
 
 .lp-site-header--over-hero .lp-nav-toggle {
-  background: rgba(255, 255, 255, 0.12);
+  background: transparent;
   color: #fff;
 }
 
 .lp-site-header--over-hero .lp-mobile-panel {
-  background: var(--juro-hero);
-  border-top-color: rgba(255, 255, 255, 0.12);
+  background: #000000;
+  border-top-color: rgba(255, 255, 255, 0.1);
 }
 
 .lp-nav-inner {
@@ -279,7 +307,7 @@
   padding: 12px 36px 14px;
 }
 
-/* —— Menu mobile —— */
+/* —— Menu mobile (ícone 4 linhas, estilo Juro) —— */
 .lp-nav-toggle {
   display: flex;
   align-items: center;
@@ -288,8 +316,36 @@
   height: 44px;
   border: none;
   background: var(--juro-shade-9);
-  border-radius: var(--juro-radius-card);
+  border-radius: 10px;
   cursor: pointer;
+  color: var(--juro-text);
+  flex-shrink: 0;
+}
+
+.lp-nav-toggle-bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.375rem;
+  height: 0.875rem;
+}
+
+.lp-nav-toggle-bars span {
+  display: block;
+  height: 1.5px;
+  border-radius: 0.5px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.lp-nav-toggle-close {
+  font-size: 1.65rem;
+  font-weight: 300;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -2px;
 }
 
 @media (min-width: 900px) {
@@ -329,14 +385,17 @@
   padding-top: 0;
 }
 
-/* —— Hero: viewport inteira; fundo sob o menu fixo (padding-top = altura header) —— */
+/* —— Hero: viewport inteira; padding-top = header + respiro até ao título —— */
 .lp-hero {
   box-sizing: border-box;
   min-height: 100vh;
   min-height: 100dvh;
-  padding-top: var(--lp-main-offset);
+  padding-top: calc(
+    var(--lp-site-header-height, 118px) + var(--lp-hero-gap-after-header)
+  );
   padding-bottom: clamp(2.5rem, 7vw, 5rem);
-  background: var(--juro-hero);
+  /* Alinhado à referência Juro: preto contínuo com a barra de navegação */
+  background: #000000;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -345,8 +404,9 @@
 
 @media (max-width: 899px) {
   .lp-hero {
-    padding-top: var(--lp-main-offset-sm);
-    justify-content: flex-start;
+    /* Mais ar entre o header e o título no telemóvel */
+    --lp-hero-gap-after-header: clamp(1.5rem, 6vw, 2.75rem);
+    justify-content: center;
     padding-bottom: clamp(2rem, 8vw, 3.5rem);
   }
 }
@@ -761,6 +821,31 @@
   margin-top: 1.35rem;
 }
 
+@media (max-width: 899px) {
+  .lp-hero-ctas {
+    justify-content: center;
+  }
+
+  .lp-produto-copy,
+  .lp-solucoes-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lp-produto-cta {
+    align-self: center;
+  }
+
+  .lp-solucoes-cta-wrap {
+    align-self: center;
+    width: 100%;
+    max-width: 22rem;
+    display: flex;
+    justify-content: center;
+  }
+}
+
 /* —— Main (duas colunas) —— */
 .lp-two-col {
   display: grid;
@@ -845,7 +930,7 @@
   box-sizing: border-box;
   min-height: 100vh;
   min-height: 100dvh;
-  padding-top: var(--lp-main-offset);
+  padding-top: var(--lp-site-header-height, 118px);
   padding-bottom: clamp(2rem, 6vw, 4rem);
   background: #121212;
   color: #fff;
@@ -858,7 +943,7 @@
 
 @media (max-width: 899px) {
   .lp-reviews-section {
-    padding-top: var(--lp-main-offset-sm);
+    padding-top: var(--lp-site-header-height, 118px);
     justify-content: flex-start;
     padding-bottom: clamp(1.75rem, 6vw, 3rem);
   }
@@ -929,7 +1014,8 @@
   --lp-review-card-h: clamp(380px, 50vh, 440px);
   overflow: hidden;
   width: 100%;
-  touch-action: pan-y;
+  /* Permite deslize horizontal no carrossel (antes pan-y bloqueava) */
+  touch-action: pan-x pinch-zoom;
 }
 
 .lp-reviews-track {
@@ -1363,7 +1449,7 @@
 
 /* —— Start (CTA final) —— */
 .lp-start {
-  background: var(--juro-hero);
+  background: #000000;
   color: #fff;
   padding: clamp(3.5rem, 9vw, 6rem) 0;
   text-align: center;
@@ -1401,6 +1487,30 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
+}
+
+@media (max-width: 767px) {
+  .lp-footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(0.65rem, 2.5vw, 1rem);
+    row-gap: 2rem;
+  }
+
+  .lp-footer-brand-block {
+    grid-column: 1 / -1;
+  }
+
+  .lp-footer-col h4 {
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.65rem;
+  }
+
+  .lp-footer-links a {
+    font-size: 0.8125rem;
+    padding: 0.2rem 0;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1482,7 +1592,7 @@
   align-items: center;
   justify-content: center;
   padding: clamp(2rem, 6vw, 4rem);
-  background: var(--juro-hero);
+  background: #000000;
   color: #fff;
   text-align: center;
 }
@@ -1552,4 +1662,130 @@
 
 .lp-not-found-actions .lp-btn--on-dark {
   border-radius: var(--juro-radius-full);
+}
+
+/* —— Responsividade (telemóvel / ecrãs estreitos) —— */
+
+@media (max-width: 639px) {
+  .lp-announcement {
+    padding: 10px 0;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+  }
+
+  .lp-announcement-inner {
+    align-items: flex-start;
+  }
+
+  .lp-announcement-copy {
+    flex: 1 1 100%;
+  }
+
+  .lp-announcement-trailing {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 899px) {
+  .lp-nav-inner {
+    gap: 10px;
+    min-height: 56px;
+  }
+
+  .lp-reviews-section {
+    min-height: 0;
+    min-height: unset;
+  }
+
+  .lp-reviews-carousel {
+    --lp-review-slide-w: min(780px, calc(100vw - 2rem));
+    --lp-review-card-h: clamp(280px, min(52dvh, 420px), 480px);
+  }
+
+  .lp-review-quote-serif {
+    -webkit-line-clamp: 4;
+  }
+}
+
+@media (max-width: 479px) {
+  .lp-hero-trust {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .lp-hero-trust > span:last-child {
+    line-height: 1.35;
+  }
+
+  .lp-quotes {
+    padding: 1.35rem 0;
+  }
+
+  .lp-quotes-row {
+    gap: 1rem 1.25rem;
+  }
+
+  .lp-quote-logo {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  .lp-produto-title,
+  .lp-porque-title,
+  .lp-start .lp-porque-title {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  .lp-start-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .lp-start-actions .lp-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mesmo formato que «Criar conta» (lp-btn--lg) na secção Começar */
+  .lp-produto-cta {
+    font-size: 1.05rem;
+    padding: 12px 36px 14px;
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .lp-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .lp-reviews-nav-row {
+    padding-inline: clamp(0.65rem, 3vw, 1rem);
+  }
+}
+
+@media (max-width: 374px) {
+  .lp-display {
+    font-size: clamp(1.65rem, 9vw, 2.35rem);
+  }
+
+  .lp-lead {
+    font-size: 1rem;
+  }
+
+  .lp-container {
+    padding-left: max(0.875rem, env(safe-area-inset-left, 0px));
+    padding-right: max(0.875rem, env(safe-area-inset-right, 0px));
+  }
 }

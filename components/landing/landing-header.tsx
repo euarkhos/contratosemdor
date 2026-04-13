@@ -1,7 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+
+/** Altura da faixa fixa (anúncio + barra de nav, sem o painel móvel aberto). */
+function measureSiteHeaderHeight(headerEl: HTMLElement) {
+  const ann = headerEl.querySelector<HTMLElement>(".lp-announcement");
+  const inner = headerEl.querySelector<HTMLElement>(".lp-nav-inner");
+  if (!inner) return;
+  const safeTop = parseFloat(getComputedStyle(headerEl).paddingTop) || 0;
+  const annH = ann?.offsetHeight ?? 0;
+  const innerH = inner.offsetHeight;
+  const borderNav = 1;
+  const h = safeTop + annH + innerH + borderNav;
+  document.documentElement.style.setProperty(
+    "--lp-site-header-height",
+    `${Math.ceil(h)}px`,
+  );
+}
 
 const nav = [
   { href: "#produto", label: "Produto" },
@@ -13,16 +29,39 @@ export function LandingHeader() {
   const [open, setOpen] = useState(false);
   const [announcementOpen, setAnnouncementOpen] = useState(true);
   const [navOverHero, setNavOverHero] = useState(true);
+  const headerRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const headerEl = headerRef.current;
+    if (!headerEl || typeof ResizeObserver === "undefined") return;
+
+    const run = () => measureSiteHeaderHeight(headerEl);
+
+    const inner = headerEl.querySelector<HTMLElement>(".lp-nav-inner");
+    if (!inner) return;
+
+    run();
+    const ro = new ResizeObserver(run);
+    const ann = headerEl.querySelector(".lp-announcement");
+    if (ann) ro.observe(ann);
+    ro.observe(inner);
+    window.addEventListener("resize", run);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", run);
+    };
+  }, [announcementOpen]);
 
   useEffect(() => {
-    if (announcementOpen) {
-      document.documentElement.style.setProperty("--lp-main-offset", "124px");
-      document.documentElement.style.setProperty("--lp-main-offset-sm", "118px");
-    } else {
-      document.documentElement.style.setProperty("--lp-main-offset", "72px");
-      document.documentElement.style.setProperty("--lp-main-offset-sm", "72px");
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
     }
-  }, [announcementOpen]);
+  }, [open]);
 
   useEffect(() => {
     const hero = document.getElementById("lp-hero");
@@ -52,6 +91,7 @@ export function LandingHeader() {
 
   return (
     <header
+      ref={headerRef}
       className={
         navOverHero
           ? "lp-site-header lp-site-header--over-hero"
@@ -61,14 +101,16 @@ export function LandingHeader() {
       {announcementOpen ? (
         <div className="lp-announcement">
           <div className="lp-container lp-announcement-inner">
-            <span>
+            <p className="lp-announcement-copy">
               Novidade: pré-análise com IA e revisão por estudantes de direito —
               piloto aberto.
-            </span>
-            <div className="lp-announcement-end">
-              <a href="#comecar">
+            </p>
+            <div className="lp-announcement-trailing">
+              <a className="lp-announcement-cta" href="#comecar">
                 Reserva o teu lugar
-                <span aria-hidden>→</span>
+                <span className="lp-announcement-arrow" aria-hidden>
+                  ↗
+                </span>
               </a>
               <button
                 type="button"
@@ -120,13 +162,28 @@ export function LandingHeader() {
 
           <button
             type="button"
-            className="lp-nav-toggle"
+            className={
+              open ? "lp-nav-toggle lp-nav-toggle--open" : "lp-nav-toggle"
+            }
             aria-expanded={open}
             aria-controls="lp-mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
-            <span className="sr-only">Menu</span>
-            {open ? "✕" : "☰"}
+            <span className="sr-only">
+              {open ? "Fechar menu" : "Abrir menu"}
+            </span>
+            {open ? (
+              <span className="lp-nav-toggle-close" aria-hidden>
+                ×
+              </span>
+            ) : (
+              <span className="lp-nav-toggle-bars" aria-hidden>
+                <span />
+                <span />
+                <span />
+                <span />
+              </span>
+            )}
           </button>
         </div>
 
