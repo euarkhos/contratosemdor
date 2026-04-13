@@ -59,6 +59,11 @@
   text-align: left;
 }
 
+.lp-announcement-kicker {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 .lp-announcement-trailing {
   display: inline-flex;
   align-items: center;
@@ -68,7 +73,7 @@
 
 .lp-announcement-cta {
   color: inherit;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -1668,21 +1673,25 @@
 
 @media (max-width: 639px) {
   .lp-announcement {
-    padding: 10px 0;
+    padding: 12px 0;
     font-size: 0.8125rem;
-    line-height: 1.35;
+    line-height: 1.45;
   }
 
   .lp-announcement-inner {
+    flex-direction: column;
     align-items: flex-start;
+    gap: 0.35rem;
   }
 
   .lp-announcement-copy {
-    flex: 1 1 100%;
+    flex: 1 1 auto;
+    text-align: left;
   }
 
   .lp-announcement-trailing {
-    margin-left: auto;
+    justify-content: flex-start;
+    gap: 0.5rem;
   }
 }
 

@@ -102,12 +102,12 @@ export function LandingHeader() {
         <div className="lp-announcement">
           <div className="lp-container lp-announcement-inner">
             <p className="lp-announcement-copy">
-              Novidade: pré-análise com IA e revisão por estudantes de direito —
-              piloto aberto.
+              <span className="lp-announcement-kicker">NOVIDADE:</span>{" "}
+              pré-análise com IA e revisão por estudantes de direito — piloto aberto.
             </p>
             <div className="lp-announcement-trailing">
               <a className="lp-announcement-cta" href="#comecar">
-                Reserva o teu lugar
+                Reserve sua vaga
                 <span className="lp-announcement-arrow" aria-hidden>
                   ↗
                 </span>
